@@ -1,0 +1,5 @@
+apiVersion: v2
+name: yelb
+description: A Helm chart for Yelb application
+version: 0.1.0
+appVersion: "1.0"
