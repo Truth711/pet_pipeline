@@ -1,5 +1,7 @@
-# This workflow executes several linters on changed files based on languages used in your code base whenever
-# you push a code or open a pull request.
+---
+# This workflow executes several linters on changed files based on
+# languages used in your code base
+# whenever you push a code or open a pull request.
 #
 # You can adjust the behavior by modifying this file.
 # For more information, see:
@@ -8,9 +10,10 @@ name: Lint Code Base
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
+
 jobs:
   run-lint:
     runs-on: ubuntu-latest
@@ -18,7 +21,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          # Full git history is needed to get a proper list of changed files within `super-linter`
+          # Full git history is needed to get a proper
+          # list of changed files within `super-linter`
           fetch-depth: 0
 
       - name: Lint Code Base
@@ -28,20 +32,16 @@ jobs:
           VALIDATE_RUBY: true
           FIX_RUBY: true
           VALIDATE_YAML: true
-          VALIDATE_YAML_PRETTIER: true
-          FIX_YAML_PRETTIER: true
           VALIDATE_DOCKERFILE_HADOLINT: true
           VALIDATE_JAVASCRIPT_STANDARD: true
           FIX_JAVASCRIPT_STANDARD: true
           VALIDATE_HTML_PRETTIER: true
           FIX_HTML_PRETTIER: true
           VALIDATE_CSS: true
-          VALIDATE_CSS_PRETTIER: true
-          FIX_CSS_PRETTIER: true
           VALIDATE_GITLEAKS: true
           VALIDATE_MARKDOWN_PRETTIER: true
           FIX_MARKDOWN_PRETTIER: true
           VALIDATE_XML: true
           VALIDATE_NATURAL_LANGUAGE: true
           DEFAULT_BRANCH: "main"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}         
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

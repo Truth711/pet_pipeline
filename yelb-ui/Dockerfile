@@ -8,8 +8,8 @@ RUN npm install -g @angular/cli@12.0.0 node-sass@4.14.1
 COPY clarity-seed-newfiles/ ./clarity-seed-newfiles/
 
 RUN git clone https://github.com/vmware/clarity-seed.git && \
-    cd clarity-seed && \
-    git checkout -b f3250ee26ceb847f61bb167a90dc957edf6e7f43
+WORKDIR clarity-seed
+RUN git checkout -b f3250ee26ceb847f61bb167a90dc957edf6e7f43
 
 COPY clarity-seed-newfiles/src ./clarity-seed/src/
 COPY clarity-seed-newfiles/package.json ./clarity-seed/package.json

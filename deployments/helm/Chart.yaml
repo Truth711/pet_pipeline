@@ -1,3 +1,4 @@
+---
 apiVersion: v2
 name: yelb
 description: A Helm chart for Yelb application

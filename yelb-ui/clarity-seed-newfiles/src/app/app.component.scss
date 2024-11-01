@@ -19,7 +19,7 @@ The full license information can be found in LICENSE in the root directory of th
   margin: 0 auto;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .center {
     width: 75%;
   }
@@ -37,7 +37,7 @@ The full license information can be found in LICENSE in the root directory of th
 
 .spacer {
   margin-top: 36px;
-  border-top: 1px solid #DDDDDD;
+  border-top: 1px solid #DDD;
   margin-bottom: 36px;
 }
 

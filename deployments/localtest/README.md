@@ -2,7 +2,7 @@ This script starts Yelb in a local `test` environment (leveraging containers).
 
 The workstation you are using doesn't have any prerequisit (except for `Docker`).
 
-You can either `docker-compose up` the yaml file provided in this folder or, alternatively, you can run these commands manually to stand up the environment :
+You can either `docker-compose up` the YAML file provided in this folder or, alternatively, you can run these commands manually to stand up the environment :
 
 ```
 docker network create yelb-network 
