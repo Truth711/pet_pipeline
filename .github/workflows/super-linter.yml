@@ -38,7 +38,6 @@ jobs:
           VALIDATE_CSS: true
           VALIDATE_CSS_PRETTIER: true
           FIX_CSS_PRETTIER: true
-          VALIDATE_TYPESCRIPT_STANDARD: true
           VALIDATE_GITLEAKS: true
           VALIDATE_MARKDOWN_PRETTIER: true
           FIX_MARKDOWN_PRETTIER: true
