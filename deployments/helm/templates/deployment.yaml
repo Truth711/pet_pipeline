@@ -74,7 +74,7 @@ spec:
             :{{.Values.redis.image.tag}}"
           imagePullPolicy: {{.Values.redis.image.pullPolicy}}
           ports:
-          - containerPort: 6379
+            - containerPort: 6379
 
 ---
 
@@ -95,8 +95,8 @@ spec:
         app: yelb-db
     spec:
       containers:
-      - name: yelb-db
-        image: "{{.Values.db.image.repository}}:{{.Values.db.image.tag}}"
-        imagePullPolicy: {{.Values.db.image.pullPolicy}}
-        ports:
-        - containerPort: 5432
+        - name: yelb-db
+          image: "{{.Values.db.image.repository}}:{{.Values.db.image.tag}}"
+          imagePullPolicy: {{.Values.db.image.pullPolicy}}
+          ports:
+          - containerPort: 5432
