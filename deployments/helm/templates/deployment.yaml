@@ -47,7 +47,7 @@ spec:
              :{{.Values.appserver.image.tag}}"
           imagePullPolicy: {{.Values.appserver.image.pullPolicy}}
           ports:
-          - containerPort: 4567
+            - containerPort: 4567
 
 ---
 
@@ -68,13 +68,13 @@ spec:
         app: redis-server
     spec:
       containers:
-      - name: redis-server
-        image: >
-        "{{.Values.redis.image.repository}}
-        :{{.Values.redis.image.tag}}"
-        imagePullPolicy: {{.Values.redis.image.pullPolicy}}
-        ports:
-        - containerPort: 6379
+        - name: redis-server
+          image: >
+            "{{.Values.redis.image.repository}}
+            :{{.Values.redis.image.tag}}"
+          imagePullPolicy: {{.Values.redis.image.pullPolicy}}
+          ports:
+          - containerPort: 6379
 
 ---
 

@@ -38,7 +38,7 @@ ingress:
     cert-manager.io/cluster-issuer: "http01-clusterissuer"
   tls:
     - host:
-      - s060709.online
+        - s060709.online
       secretName: domain-name-secret
   hosts:
     - host: s060709.online

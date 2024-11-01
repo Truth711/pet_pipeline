@@ -5,7 +5,7 @@ metadata:
   name: yelb
   annotations:
   {{- range $key, $value := .Values.ingress.annotations }}
-  {{$key}}: {{$value | quote}}
+    {{$key}}: {{$value | quote}}
   {{- end }}
 spec:
   tls:
