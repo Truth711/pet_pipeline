@@ -1,6 +1,8 @@
-require 'socket'
+# frozen_string_literal: true
 
-def hostname()
-        hostnamedata = Socket.gethostname        
-        return hostnamedata
+require "socket"
+
+def hostname
+  hostnamedata = Socket.gethostname
+  return hostnamedata
 end

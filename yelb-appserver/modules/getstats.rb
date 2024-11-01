@@ -1,9 +1,11 @@
-require_relative 'hostname'
-require_relative 'pageviews'
+# frozen_string_literal: true
 
-def getstats()
-        hostname = hostname()
-        pageviews = pageviews()
-        stats = '{"hostname": "' + hostname + '"' + ", " + '"pageviews":' + pageviews + "}"
-        return stats
+require_relative "hostname"
+require_relative "pageviews"
+
+def getstats
+  hostname = hostname
+  pageviews = pageviews
+  stats = '{"hostname": "' + hostname + '"' + ', "pageviews":' + pageviews + '}'
+  return stats
 end

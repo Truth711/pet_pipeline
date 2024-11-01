@@ -6,10 +6,10 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: {{ .Values.clusterissuer.email }}
+    email: {{.Values.clusterissuer.email}}
     privateKeySecretRef:
       name: http01-clusterissuer-secret
     solvers:
-    - http01:
+      - http01:
         ingress:
           class: nginx

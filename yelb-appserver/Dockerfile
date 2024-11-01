@@ -13,11 +13,11 @@ ENV LC_ALL=C.UTF-8
 ENV RACK_ENV=production
 
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y libpq-dev -v '13.0' && \
-    gem install sinatra -v '2.0.0' --no-ri --no-rdoc && \
-    gem install redis -v '4.0.0' --no-ri --no-rdoc && \
-    gem install pg -v '1.2.3' --no-ri --no-rdoc && \
-    gem install aws-sdk-dynamodb -v '1.0.0' --no-ri --no-rdoc && \
+    apt-get install --no-install-recommends -y libpq-dev=13.0 && \
+    gem install sinatra=2.0.0 --no-ri --no-rdoc && \
+    gem install redis=4.0.0 --no-ri --no-rdoc && \
+    gem install pg=1.2.3 --no-ri --no-rdoc && \
+    gem install aws-sdk-dynamodb=1.0.0 --no-ri --no-rdoc && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
