@@ -99,4 +99,4 @@ spec:
           image: "{{.Values.db.image.repository}}:{{.Values.db.image.tag}}"
           imagePullPolicy: {{.Values.db.image.pullPolicy}}
           ports:
-          - containerPort: 5432
+            - containerPort: 5432
