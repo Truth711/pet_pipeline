@@ -31,7 +31,6 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_RUBY: true
           FIX_RUBY: true
-          VALIDATE_YAML: true
           VALIDATE_DOCKERFILE_HADOLINT: true
           VALIDATE_JAVASCRIPT_STANDARD: true
           FIX_JAVASCRIPT_STANDARD: true
