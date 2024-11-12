@@ -4,9 +4,7 @@ kind: Ingress
 metadata:
   name: yelb
   annotations:
-    {{- range $key, $value := .Values.ingress.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
+  {{- toYaml .Values.ingress.annotations | nindent 4 }}
 spec:
   tls:
     {{- range .Values.ingress.tls}}
