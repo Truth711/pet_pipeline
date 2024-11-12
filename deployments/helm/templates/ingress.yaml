@@ -3,11 +3,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: yelb
-{{- if .Values.ingress.annotations}}
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: http01-clusterissuer
-{{ end -}}
 spec:
   tls:
     {{- range .Values.ingress.tls}}
