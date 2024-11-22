@@ -27,7 +27,7 @@ RUN gem install pg --no-document
 RUN gem install aws-sdk-dynamodb pg --no-document
 # Set the working directory to /
 WORKDIR /
-ADD startup.sh startup.sh
+COPY startup.sh startup.sh
 
 # Lambda adapter
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.5.1 /lambda-adapter /lambda-adapter
