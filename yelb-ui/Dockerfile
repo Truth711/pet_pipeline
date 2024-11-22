@@ -1,4 +1,4 @@
-FROM node:12.22
+FROM node:12.22 AS builder
 LABEL maintainer="massimo@it20.info"
 
 WORKDIR /
@@ -32,7 +32,7 @@ RUN ng build --environment=prod --output-path=./prod/dist/ -aot -vc -cc -dop --b
     ng build --environment=dev --output-path=./dev/dist/
 
 
-FROM nginx:1.17.10
+FROM nginx:1.17.10 AS runtime
 LABEL maintainer="massimo@it20.info"
 
 WORKDIR /
@@ -42,9 +42,9 @@ ENV UI_ENV=prod
 
 RUN chmod +x startup.sh
 
-COPY --from=0 /clarity-seed/src/prod/dist /clarity-seed/prod/dist
-COPY --from=0 /clarity-seed/src/test/dist /clarity-seed/test/dist
-COPY --from=0 /clarity-seed/src/dev/dist /clarity-seed/dev/dist
+COPY --from=builder /clarity-seed/src/prod/dist /clarity-seed/prod/dist
+COPY --from=builder /clarity-seed/src/test/dist /clarity-seed/test/dist
+COPY --from=builder /clarity-seed/src/dev/dist /clarity-seed/dev/dist
 
 CMD ["./startup.sh"]
 
