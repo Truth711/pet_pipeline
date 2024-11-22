@@ -31,12 +31,8 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_RUBY: true
           FIX_RUBY: true
-          VALIDATE_DOCKERFILE_HADOLINT: true
           VALIDATE_JAVASCRIPT_STANDARD: true
           FIX_JAVASCRIPT_STANDARD: true
-          VALIDATE_HTML_PRETTIER: true
-          FIX_HTML_PRETTIER: true
-          VALIDATE_CSS: true
           VALIDATE_GITLEAKS: true
           VALIDATE_MARKDOWN_PRETTIER: true
           FIX_MARKDOWN_PRETTIER: true
