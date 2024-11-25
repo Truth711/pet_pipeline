@@ -1,11 +1,4 @@
 ---
-# This workflow executes several linters on changed files based on
-# languages used in your code base
-# whenever you push a code or open a pull request.
-#
-# You can adjust the behavior by modifying this file.
-# For more information, see:
-# https://github.com/github/super-linter
 name: Lint Code Base
 
 on:
@@ -15,15 +8,21 @@ on:
     branches: ["main"]
 
 jobs:
-  run-lint:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          # Full git history is needed to get a proper
-          # list of changed files within `super-linter`
           fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4.2.0
+        with:
+          version: v3.13.3
+
+      - name: Run Helm Lint
+        run: helm lint ./deployments/helm
 
       - name: Lint Code Base
         uses: super-linter/super-linter@v7.1.0

@@ -1,0 +1,31 @@
+name: CI/CD
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-appserver:
+    name: Build Appserver
+    needs: lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to Yandex Cloud Container Registry
+        id: login-cr
+        uses: yc-actions/yc-cr-login@v2
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+
+      - name: Build, tag, and push image to Yandex Cloud Container Registry
+        env:
+          CR_REPOSITORY: yelb
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t cr.yandex/${{ CR_REGISTRY }}/$CR_REPOSITORY:$IMAGE_TAG ./yelb-appserver
+          docker push cr.yandex/${{ CR_REGISTRY }}/$CR_REPOSITORY:$IMAGE_TAG
