@@ -57,14 +57,20 @@ jobs:
 
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
-          CR_REPOSITORY: yelb
+          CR_REGISTRY: ${{ vars.CR_REGISTRY }}
+          CR_REPOSITORY: yelb-appserver
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t cr.yandex/${{ vars.CR_REGISTRY }}/$CR_REPOSITORY:$IMAGE_TAG ./yelb-appserver
-          docker push cr.yandex/${{ vars.CR_REGISTRY }}/$CR_REPOSITORY:$IMAGE_TAG
+          docker build \
+          -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG \
+          -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:latest \
+          ./yelb-appserver
+
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:latest
 
   build-db:
-    name: Build Appserver
+    name: Build DB
     needs: lint
     runs-on: ubuntu-latest
 
@@ -80,14 +86,20 @@ jobs:
 
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
-          CR_REPOSITORY: yelb
+          CR_REGISTRY: ${{ vars.CR_REGISTRY }}
+          CR_REPOSITORY: yelb-db
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t cr.yandex/${{ vars.CR_REGISTRY }}/$CR_REPOSITORY:$IMAGE_TAG ./yelb-db
-          docker push cr.yandex/${{ vars.CR_REGISTRY }}/$CR_REPOSITORY:$IMAGE_TAG
+          docker build \
+          -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG \
+          -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:latest \
+          ./yelb-db
+
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:latest
 
   build-ui:
-    name: Build Appserver
+    name: Build UI
     needs: lint
     runs-on: ubuntu-latest
 
@@ -103,8 +115,14 @@ jobs:
 
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
-          CR_REPOSITORY: yelb
+          CR_REGISTRY: ${{ vars.CR_REGISTRY }}
+          CR_REPOSITORY: yelb-ui
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t cr.yandex/${{ vars.CR_REGISTRY }}/$CR_REPOSITORY:$IMAGE_TAG ./yelb-ui
-          docker push cr.yandex/${{ vars.CR_REGISTRY }}/$CR_REPOSITORY:$IMAGE_TAG
+          docker build \
+          -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG \
+          -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:latest \
+          ./yelb-ui
+
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:latest
