@@ -3,26 +3,26 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: yelb
-{{- if .Values.ingress.annotations}}
+{{- if .Values.ingress.annotations }}
   annotations:
 {{- toYaml .Values.ingress.annotations | nindent 4 }}
 {{- end }}
 spec:
   rules:
-    {{- range .Values.ingress.hosts}}
-    - host: {{.host}}
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host }}
       http:
         paths:
-          {{- range .paths}}
+          {{- range .paths }}
           - path: {{ .path }}
-            pathType: {{.pathType}}
+            pathType: {{ .pathType }}
             backend:
               service:
                 name: yelb-ui
                 port:
                   number: 80
-          {{- end}}
-    {{- end}}
+          {{- end }}
+    {{- end }}
 {{- if .Values.ingress.tls }}
   tls:
 {{ toYaml .Values.ingress.tls | indent 4 }}

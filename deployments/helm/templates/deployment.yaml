@@ -6,7 +6,7 @@ metadata:
   labels:
     app: yelb-ui
 spec:
-  replicas: {{.Values.ui.replicaCount}}
+  replicas: {{ .Values.ui.replicaCount }}
   selector:
     matchLabels:
       app: yelb-ui
@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
         - name: yelb-ui
-          image: "{{.Values.ui.image.repository}}:{{.Values.ui.image.tag}}"
-          imagePullPolicy: {{.Values.ui.image.pullPolicy}}
+          image: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}"
+          imagePullPolicy: {{ .Values.ui.image.pullPolicy }}
           ports:
             - containerPort: 80
 
@@ -31,7 +31,7 @@ metadata:
   labels:
     app: yelb-appserver
 spec:
-  replicas: {{.Values.appserver.replicaCount}}
+  replicas: {{ .Values.appserver.replicaCount }}
   selector:
     matchLabels:
       app: yelb-appserver
@@ -43,9 +43,9 @@ spec:
       containers:
         - name: yelb-appserver
           image: >
-            "{{.Values.appserver.image.repository}}
-             :{{.Values.appserver.image.tag}}"
-          imagePullPolicy: {{.Values.appserver.image.pullPolicy}}
+            "{{ .Values.appserver.image.repository }}
+             :{{ .Values.appserver.image.tag }}"
+          imagePullPolicy: {{ .Values.appserver.image.pullPolicy }}
           ports:
             - containerPort: 4567
 
@@ -58,7 +58,7 @@ metadata:
   labels:
     app: redis-server
 spec:
-  replicas: {{.Values.redis.replicaCount}}
+  replicas: {{ .Values.redis.replicaCount }}
   selector:
     matchLabels:
       app: redis-server
@@ -70,9 +70,9 @@ spec:
       containers:
         - name: redis-server
           image: >
-            "{{.Values.redis.image.repository}}
-            :{{.Values.redis.image.tag}}"
-          imagePullPolicy: {{.Values.redis.image.pullPolicy}}
+            "{{ .Values.redis.image.repository }}
+            :{{ .Values.redis.image.tag }}"
+          imagePullPolicy: {{ .Values.redis.image.pullPolicy }}
           ports:
             - containerPort: 6379
 
@@ -85,7 +85,7 @@ metadata:
   labels:
     app: yelb-db
 spec:
-  replicas: {{.Values.db.replicaCount}}
+  replicas: {{ .Values.db.replicaCount }}
   selector:
     matchLabels:
       app: yelb-db
@@ -96,7 +96,7 @@ spec:
     spec:
       containers:
         - name: yelb-db
-          image: "{{.Values.db.image.repository}}:{{.Values.db.image.tag}}"
-          imagePullPolicy: {{.Values.db.image.pullPolicy}}
+          image: "{{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}"
+          imagePullPolicy: {{ .Values.db.image.pullPolicy }}
           ports:
             - containerPort: 5432
