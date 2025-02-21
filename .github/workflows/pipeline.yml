@@ -148,6 +148,8 @@ jobs:
                
       - name: Setup Helm
         uses: azure/setup-helm@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           version: "latest"
 
@@ -155,6 +157,8 @@ jobs:
         env:
           CR_REGISTRY: ${{ vars.CR_REGISTRY }}
           IMAGE_TAG: ${{ github.sha }}
+          KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           helm upgrade --install my-release ./deployments/helm \
             --set ui.image.repository=cr.yandex/$CR_REGISTRY/yelb-ui \
@@ -163,4 +167,5 @@ jobs:
             --set appserver.image.tag=$IMAGE_TAG \
             --set db.image.repository=cr.yandex/$CR_REGISTRY/yelb-db \
             --set db.image.tag=$IMAGE_TAG \
+            --set kubeconfig=$KUBE_CONFIG
             -n default
