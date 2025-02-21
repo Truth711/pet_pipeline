@@ -1,6 +1,39 @@
 {{/*
 Expand the name of the chart.
-*/}}
+*/}}yelb.ui.fullname
+
+{{- define "yelb.ui.name" -}}
+ui
+{{- end }}
+
+{{- define "yelb.ui.fullname" -}}
+{{ .Release.Name }}-ui
+{{- end }}
+
+{{- define "yelb.appserver.name" -}}
+appserver
+{{- end }}
+
+{{- define "yelb.appserver.fullname" -}}
+{{ .Release.Name }}-appserver
+{{- end }}
+
+{{- define "yelb.db.name" -}}
+db
+{{- end }}
+
+{{- define "yelb.db.fullname" -}}
+{{ .Release.Name }}-db
+{{- end }}
+
+{{- define "redis.name" -}}
+redis
+{{- end }}
+
+{{- define "redis.fullname" -}}
+{{ .Release.Name }}-redis
+{{- end }}
+
 {{- define "yelb.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}

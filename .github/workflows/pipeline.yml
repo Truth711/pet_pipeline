@@ -126,3 +126,40 @@ jobs:
 
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: "latest"
+
+      - name: Set Kubernetes context
+        uses: azure/k8s-set-context@v4
+        with:
+          method: service-account
+          k8s-url: ${{ secrets.K8S_API_URL }}
+          k8s-secret: ${{ secrets.K8S_SECRET }}
+               
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: "latest"
+
+      - name: Deploy Helm Chart
+        env:
+          CR_REGISTRY: ${{ vars.CR_REGISTRY }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          helm upgrade --install my-release ./deployments/helm \
+            --set ui.image.repository=cr.yandex/$CR_REGISTRY/yelb-ui \
+            --set ui.image.tag=$IMAGE_TAG \
+            --set appserver.image.repository=cr.yandex/$CR_REGISTRY/yelb-appserver \
+            --set appserver.image.tag=$IMAGE_TAG \
+            --set db.image.repository=cr.yandex/$CR_REGISTRY/yelb-db \
+            --set db.image.tag=$IMAGE_TAG \
+            -n default

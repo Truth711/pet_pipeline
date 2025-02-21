@@ -2,53 +2,53 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: yelb-ui
+  name: {{ include "yelb.ui.fullname" . }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.ui.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ .Values.ui.service.port }}
       targetPort: 80
   selector:
-    app: yelb-ui
+    app: {{ include "yelb.ui.name" . }}
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: yelb-appserver
+  name: {{ include "yelb.appserver.fullname" . }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.appserver.service.type }}
   ports:
-    - port: 4567
+    - port: {{ .Values.appserver.service.port }}
       targetPort: 4567
   selector:
-    app: yelb-appserver
+    app: {{ include "yelb.appserver.name" . }}
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-server
+  name: {{ include "redis.fullname" . }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.redis.service.type }}
   ports:
-    - port: 6379
+    - port: {{ .Values.redis.service.port }}
       targetPort: 6379
   selector:
-    app: redis-server
+    app: {{ include "redis.name" . }}
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: yelb-db
+  name: {{ include "yelb.db.fullname" . }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.db.service.type }}
   ports:
-    - port: 5432
+    - port: {{ .Values.db.service.port }}
       targetPort: 5432
   selector:
-    app: yelb-db
+    app: {{ include "yelb.db.name" . }}

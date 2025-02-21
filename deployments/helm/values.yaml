@@ -1,10 +1,28 @@
 ---
+imagePullSecrets:
+  - name: yc-registry-secret
 ui:
   replicaCount: 2
   image:
     repository: mreferre/yelb-ui
     tag: "0.7"
     pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "128Mi"
+      cpu: "100m"
+  livenessProbe:
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  readinessProbe:
+    initialDelaySeconds: 5
+    periodSeconds: 10
 
 appserver:
   replicaCount: 2
@@ -12,24 +30,79 @@ appserver:
     repository: mreferre/yelb-appserver
     tag: "0.5"
     pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "128Mi"
+      cpu: "100m"
+  livenessProbe:
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  readinessProbe:
+    initialDelaySeconds: 5
+    periodSeconds: 10
 
 db:
   replicaCount: 1
   image:
-    repository: mreferre/yelb-db
-    tag: "0.5"
+    repository: my-repo/yelb-db
+    tag: latest
     pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 5432
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "150m"
+    limits:
+      memory: "128Mi"
+      cpu: "100m"
+  livenessProbe:
+    initialDelaySeconds: 10
+    periodSeconds: 10
+  readinessProbe:
+    initialDelaySeconds: 10
+    periodSeconds: 10
 
 redis:
-  replicaCount: 2
+  replicaCount: 1
+  
   image:
     repository: redis
-    tag: "4.0.2"
+    tag: latest
     pullPolicy: IfNotPresent
-
-service:
-  type: ClusterIP
-  port: 80
+  
+  service:
+    type: ClusterIP
+    port: 6379
+  resources:
+    limits:
+      cpu: "100m"
+      memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+  persistence:
+    enabled: true
+    size: 1Gi
+    storageClass: ""
+  config:
+    maxmemory: "200mb"
+    maxmemoryPolicy: "allkeys-lru"
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 3
+    periodSeconds: 5
 
 ingress:
   enabled: true
@@ -48,3 +121,29 @@ ingress:
 
 clusterissuer:
   email: rizovoyb@yandex.ru
+
+cicd:
+  serviceAccount: cicd
+  clusterRole:
+    name: continuous-deployment
+    rules:
+      - apiGroups:
+          - ''
+          - apps
+          - networking.k8s.io
+        resources:
+          - namespaces
+          - deployments
+          - replicasets
+          - ingresses
+          - services
+          - secrets
+        verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
