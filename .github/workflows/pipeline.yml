@@ -134,6 +134,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Install Yandex Cloud CLI
+        run: |
+          curl -fsSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+          export PATH=$PATH:$HOME/.yandex-cloud/bin
+    
       - name: Setup kubectl
         uses: azure/setup-kubectl@v3
         with:
