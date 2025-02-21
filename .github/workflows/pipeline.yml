@@ -164,7 +164,6 @@ jobs:
         env:
           CR_REGISTRY: ${{ vars.CR_REGISTRY }}
           IMAGE_TAG: ${{ github.sha }}
-          KUBE_CONFIG: $HOME/.kube/config
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           helm upgrade --install my-release ./deployments/helm \
@@ -174,4 +173,5 @@ jobs:
             --set appserver.image.tag=$IMAGE_TAG \
             --set db.image.repository=cr.yandex/$CR_REGISTRY/yelb-db \
             --set db.image.tag=$IMAGE_TAG \
+            --set kubeconfig=$HOME/.kube/config \
             -n default
