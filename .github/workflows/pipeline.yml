@@ -152,12 +152,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           version: "latest"
+          
+      - name: Установить kubeconfig
+        run: echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+        shell: bash
 
       - name: Deploy Helm Chart
         env:
           CR_REGISTRY: ${{ vars.CR_REGISTRY }}
           IMAGE_TAG: ${{ github.sha }}
-          KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
+          KUBE_CONFIG: $HOME/.kube/config
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           helm upgrade --install my-release ./deployments/helm \
@@ -167,5 +171,4 @@ jobs:
             --set appserver.image.tag=$IMAGE_TAG \
             --set db.image.repository=cr.yandex/$CR_REGISTRY/yelb-db \
             --set db.image.tag=$IMAGE_TAG \
-            --set kubeconfig=$KUBE_CONFIG
             -n default
