@@ -138,6 +138,7 @@ jobs:
         run: |
           curl -fsSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
           export PATH=$PATH:$HOME/.yandex-cloud/bin
+          echo "source $HOME/.bashrc" >> $GITHUB_ENV
     
       - name: Setup kubectl
         uses: azure/setup-kubectl@v3
