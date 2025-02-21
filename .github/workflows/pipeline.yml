@@ -138,28 +138,28 @@ jobs:
         uses: azure/setup-kubectl@v3
         with:
           version: "latest"
+      
+      - name: mkdir .kube
+        run: mkdir -p $HOME/.kube
 
-      - name: Set Kubernetes context
-        uses: azure/k8s-set-context@v4
-        with:
-          method: service-account
-          k8s-url: ${{ secrets.K8S_API_URL }}
-          k8s-secret: ${{ secrets.K8S_SECRET }}
-               
+      - name: Set kubeconfig
+        run: echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+        shell: bash
+     
+      - name: Test kubectl access
+        run: |
+         kubectl cluster-info
+              
+      - name: Debug kubeconfig
+        run: cat $HOME/.kube/config
+
       - name: Setup Helm
         uses: azure/setup-helm@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           version: "latest"
-
-      - name: mkdir .kube
-        run: mkdir -p $HOME/.kube
           
-      - name: Set kubeconfig
-        run: echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
-        shell: bash
-
       - name: Deploy Helm Chart
         env:
           CR_REGISTRY: ${{ vars.CR_REGISTRY }}
