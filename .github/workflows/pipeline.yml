@@ -152,8 +152,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           version: "latest"
+
+      - name: mkdir .kube
+        run: mkdir -p $HOME/.kube
           
-      - name: Установить kubeconfig
+      - name: Set kubeconfig
         run: echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
         shell: bash
 
